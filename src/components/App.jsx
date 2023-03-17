@@ -4,11 +4,26 @@ import { nanoid } from 'nanoid'
 import { Filter } from "./Filter/Filter";
 import { Contacts } from "./Contacts/Contacts"
 import Notiflix from 'notiflix';
+import { load, save } from './localStorage'
+const KEY = 'contacts';
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   }
+  componentDidMount() {
+    const localContacts = load(KEY);
+    if (localContacts) {
+      this.setState({ contacts: localContacts })
+    }
+
+  }
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts.length !== prevState.contacts.length) {
+      save(KEY, this.state.contacts)
+    }
+  }
+
   handleSubmit = ({ name, number }) => {
     const userId = nanoid()
     const isNamePresent = this.state.contacts.find(el => el.name === name);
