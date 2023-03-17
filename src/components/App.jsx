@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import { Filter } from "./Filter/Filter";
 import { Contacts } from "./Contacts/Contacts"
 import Notiflix from 'notiflix';
-import { load, save } from './localStorage'
+import { load, save } from './Utilities/localStorage'
 const KEY = 'contacts';
 export class App extends Component {
   state = {
